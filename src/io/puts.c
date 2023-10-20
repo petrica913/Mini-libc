@@ -7,14 +7,14 @@ int puts(const char* str)
 
     while (str[written] != '\0') {
         if (write(1, &str[written], 1) != 1) {
-            return -1; // Error occurred
+            return -1;
         }
         written++;
     }
 
     if (write(1, "\n", 1) != 1) {
-        return -1; // Error occurred while writing the newline character
+        return -1;
     }
 
-    return written + 1; // Success
+    return written + 1;
 }
