@@ -19,7 +19,6 @@ char *strcpy(char *destination, const char *source)
 
 char *strncpy(char *destination, const char *source, size_t len)
 {
-	/* TODO: Implement strncpy(). */
 	if (!destination)
 		return NULL;
 	if (len == 0)
@@ -124,36 +123,89 @@ char *strrchr(const char *str, int c)
 
 char *strstr(const char *haystack, const char *needle)
 {
-	/* TODO: Implement strstr(). */
+	while (*haystack != '\0') {
+		const char *h = haystack;
+		const char *n = needle;
+		while (*h == *n && *n != 0) {
+			h++;
+			n++;
+		}
+		if (*n == '\0')
+			return haystack;
+		haystack++;
+	}
 	return NULL;
 }
 
 char *strrstr(const char *haystack, const char *needle)
 {
-	/* TODO: Implement strrstr(). */
-	return NULL;
+	const char *found = NULL;
+	while (*haystack != '\0') {
+		const char *h = haystack;
+		const char *n = needle;
+		while (*h == *n && *n != 0) {
+			h++;
+			n++;
+		}
+		if (*n == '\0')
+			found = haystack;
+		haystack++;
+	}
+	return found;
 }
 
 void *memcpy(void *destination, const void *source, size_t num)
 {
-	/* TODO: Implement memcpy(). */
+	char *cdest = (char *) destination;
+	char *csrc = (char *) source;
+	for (int i = 0; i < num; i++) {
+		cdest[i] = csrc[i];
+	}
 	return destination;
 }
 
 void *memmove(void *destination, const void *source, size_t num)
 {
-	/* TODO: Implement memmove(). */
+	char *cdest = (char *) destination;
+	char *csrc = (char *) source;
+
+	if (cdest == csrc || num == 0)
+		return destination;
+	if (cdest > csrc && cdest - csrc < (int)num) {
+		for (size_t i = num - 1; i >= 0; i--)
+			cdest[i] =csrc[i];
+		return destination;
+	}
+	if (csrc > cdest && csrc - cdest < (int) num) {
+		for (size_t i = 0; i < num; i++)
+			cdest[i] = csrc[i];
+		return destination;
+	}
+	memcpy(destination, source, num);
 	return destination;
 }
 
 int memcmp(const void *ptr1, const void *ptr2, size_t num)
 {
-	/* TODO: Implement memcmp(). */
-	return -1;
+	unsigned char cptr1;
+	unsigned char cptr2;
+	while (num-- > 0) {
+		cptr1 = * (unsigned char *)ptr1;
+		cptr2 = * (unsigned char *)ptr2;
+		if (cptr1 != cptr2)
+		return (cptr1 - cptr2);
+		ptr1++;
+		ptr2++;
+	}
+	
+	return 0;
 }
 
 void *memset(void *source, int value, size_t num)
 {
-	/* TODO: Implement memset(). */
+	unsigned char *cs = (unsigned char *) source;
+	for (size_t i= 0; i < num; i++) {
+		cs[i] = (unsigned char) value;
+	}
 	return source;
 }
