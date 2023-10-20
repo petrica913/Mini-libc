@@ -8,6 +8,11 @@
         "syscall_arch.h": "c",
         "unistd.h": "c",
         "types.h": "c",
-        "io.h": "c"
+        "io.h": "c",
+        "essentials.h": "c",
+        "mman.h": "c",
+        "string.h": "c",
+        "syscall_list.h": "c",
+        "stat.h": "c"
     }
 }
