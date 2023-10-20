@@ -6,6 +6,8 @@
         "mem_list.h": "c",
         "stdarg.h": "c",
         "syscall_arch.h": "c",
-        "unistd.h": "c"
+        "unistd.h": "c",
+        "types.h": "c",
+        "io.h": "c"
     }
 }

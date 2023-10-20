@@ -15,6 +15,8 @@ SRCS = syscall.c \
        io/lseek.c io/truncate.c io/ftruncate.c \
        io/puts.c \
        errno.c \
+       process/sleep.c \
+       process/nanosleep.c \
        crt/__libc_start_main.c
 
 # TODO: Add sleep.c and puts.c dependency.
