@@ -7,6 +7,10 @@
 
 int open(const char *filename, int flags, ...)
 {
-	/* TODO: Implement open system call. */
-	return -1;
+	long result = syscall(__NR_open, filename, flags);
+	if (result < 0) {
+		errno = -result;
+		return -1;
+	}
+	return (int) result;
 }
