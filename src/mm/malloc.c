@@ -7,27 +7,39 @@
 #include <string.h>
 #include <stdlib.h>
 
+struct mem_list new_mem_list;
+
 void *malloc(size_t size)
 {
-	/* TODO: Implement malloc(). */
-	return NULL;
+	void *ptr = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+	new_mem_list.len = size;
+	new_mem_list.start = &ptr;
+	return ptr;
 }
 
 void *calloc(size_t nmemb, size_t size)
 {
-	/* TODO: Implement calloc(). */
-	return NULL;
+	size_t total_size = nmemb * size;
+	void *ptr = malloc(total_size);
+	if (ptr) {
+		unsigned char *byte = (unsigned char *)ptr;
+		for (size_t i = 0; i < total_size; i++)
+			byte[i] = 0;
+	}
+	return ptr;
 }
 
 void free(void *ptr)
 {
-	/* TODO: Implement free(). */
+	return munmap(ptr, new_mem_list.len);
 }
 
 void *realloc(void *ptr, size_t size)
 {
 	/* TODO: Implement realloc(). */
-	return NULL;
+	void *result = mremap(&ptr, new_mem_list.len, size, MREMAP_MAYMOVE);
+	new_mem_list.len = size;
+	return result;
 }
 
 void *reallocarray(void *ptr, size_t nmemb, size_t size)
