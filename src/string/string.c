@@ -164,25 +164,14 @@ void *memcpy(void *destination, const void *source, size_t num)
 	return destination;
 }
 
-void *memmove(void *destination, const void *source, size_t num)
-//probleme aici pica ultimele 2 teste
+void *memmove(void *destination, const void *source, size_t num)	
 {
 	char *cdest = (char *) destination;
 	char *csrc = (char *) source;
-
-	if (cdest == csrc || num == 0)
-		return destination;
-	if (cdest > csrc && cdest - csrc < (int)num) {
-		for (size_t i = num - 1; i >= 0; i--)
-			cdest[i] =csrc[i];
-		return destination;
-	}
-	if (csrc > cdest && csrc - cdest < (int) num) {
-		for (size_t i = 0; i < num; i++)
-			cdest[i] = csrc[i];
-		return destination;
-	}
-	memcpy(destination, source, num);
+	char aux[num];
+	for (size_t i = 0; i < num; i++)
+		aux[i] = csrc[i];
+	memcpy(destination, aux, num);
 	return destination;
 }
 
