@@ -35,8 +35,8 @@ void free(void *ptr)
 }
 
 void *realloc(void *ptr, size_t size)
+//probleme si aici pica testul de accesare al datelor
 {
-	/* TODO: Implement realloc(). */
 	void *result = mremap(&ptr, new_mem_list.len, size, MREMAP_MAYMOVE);
 	new_mem_list.len = size;
 	return result;
