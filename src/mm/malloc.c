@@ -17,8 +17,9 @@ void *malloc(size_t size)
 	if (ptr) {
 		mem_list_add(ptr, size);
 		return (void *)ptr;
-	} else
+	} else {
 		return (void *)-1;
+	}
 }
 
 void *calloc(size_t nmemb, size_t size)
@@ -43,7 +44,6 @@ void *realloc(void *ptr, size_t size)
 {
 	void *result = mremap(&ptr, new_mem_list.len, size, MREMAP_MAYMOVE);
 	mem_list_find(ptr)->len = size;
-
 }
 
 void *reallocarray(void *ptr, size_t nmemb, size_t size)
