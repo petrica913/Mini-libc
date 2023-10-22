@@ -12,9 +12,11 @@ struct mem_list new_mem_list;
 void *malloc(size_t size)
 {
 	void *ptr = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-	new_mem_list.len = size;
-	new_mem_list.start = &ptr;
-	return ptr;
+	if (ptr) {
+		mem_list_add(ptr, size);
+		return (void *)ptr;
+	} else
+		return (void *)-1;
 }
 
 void *calloc(size_t nmemb, size_t size)
@@ -31,15 +33,15 @@ void *calloc(size_t nmemb, size_t size)
 
 void free(void *ptr)
 {
-	return munmap(ptr, new_mem_list.len);
+	munmap(ptr, mem_list_find(ptr)->len);
+	mem_list_del(ptr);
 }
 
 void *realloc(void *ptr, size_t size)
-//probleme si aici pica testul de accesare al datelor
 {
 	void *result = mremap(&ptr, new_mem_list.len, size, MREMAP_MAYMOVE);
-	new_mem_list.len = size;
-	return result;
+	mem_list_find(ptr)->len = size;
+
 }
 
 void *reallocarray(void *ptr, size_t nmemb, size_t size)
