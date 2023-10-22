@@ -116,7 +116,7 @@ char *strrchr(const char *str, int c)
 	while (*str) {
 		if (*str == c)
 			found = str;
-		*str++;
+		str++;
 	}
 	return found;
 }
@@ -164,11 +164,11 @@ void *memcpy(void *destination, const void *source, size_t num)
 	return destination;
 }
 
-void *memmove(void *destination, const void *source, size_t num)	
+void *memmove(void *destination, const void *source, size_t num)
 {
 	char *cdest = (char *) destination;
 	char *csrc = (char *) source;
-	char aux[num];
+	char aux[255];
 	for (size_t i = 0; i < num; i++)
 		aux[i] = csrc[i];
 	memcpy(destination, aux, num);
@@ -187,7 +187,6 @@ int memcmp(const void *ptr1, const void *ptr2, size_t num)
 		ptr1++;
 		ptr2++;
 	}
-	
 	return 0;
 }
 
