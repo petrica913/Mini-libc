@@ -3,11 +3,9 @@
 #include <unistd.h>
 #include <internal/syscall.h>
 #include <errno.h>
-//#include <sys/types.h>
 
 int ftruncate(int fd, off_t length)
 {
-	/* TODO: Implement ftruncate(). */
 	int ret = syscall(__NR_ftruncate, fd, length);
 
 	if (ret < 0) {

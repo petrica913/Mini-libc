@@ -15,7 +15,6 @@ void *mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset)
 	}
 
 	if (!(flags & MAP_ANONYMOUS)) {
-        struct stat st;
         if (fd < 0 || (flags & MAP_SHARED )) {
             errno = EBADF;  // Bad file descriptor
             return MAP_FAILED;
@@ -45,9 +44,9 @@ int munmap(void *addr, size_t length)
 {
 	long result = syscall(__NR_munmap, addr, length);
     if (result < 0) {
-        return MAP_FAILED;
+        return (__INTPTR_TYPE__)MAP_FAILED;
     }
 
-    return (void *)result;
+    return result;
 	return -1;
 }

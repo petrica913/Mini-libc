@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <errno.h>
+#include <unistd.h>
 
+// puts source: https://chat.openai.com/
 int puts(const char* str)
 {
     int written = 0;

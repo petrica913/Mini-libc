@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: BSD-3-Clause
 
 #include <string.h>
-
+// strcpy source: https://www.techiedelight.com/implement-strcpy-function-c/
 char *strcpy(char *destination, const char *source)
 {
 	if (!destination)
@@ -36,6 +36,7 @@ char *strncpy(char *destination, const char *source, size_t len)
 	return ptr;
 }
 
+// strcat source: https://www.techiedelight.com/implement-strcat-function-c/
 char *strcat(char *destination, const char *source)
 {
 	char *ptr = destination + strlen(destination);
@@ -104,7 +105,7 @@ char *strchr(const char *str, int c)
 {
 	while (*str != '\0') {
 		if (*str == c)
-			return str;
+			return (char *)str;
 		str++;
 	}
 	return NULL;
@@ -112,15 +113,15 @@ char *strchr(const char *str, int c)
 
 char *strrchr(const char *str, int c)
 {
-	char *found = NULL;
+	const char *found = NULL;
 	while (*str) {
 		if (*str == c)
 			found = str;
 		str++;
 	}
-	return found;
+	return (char *)found;
 }
-
+// strstr source: https://chat.openai.com/
 char *strstr(const char *haystack, const char *needle)
 {
 	while (*haystack != '\0') {
@@ -131,7 +132,7 @@ char *strstr(const char *haystack, const char *needle)
 			n++;
 		}
 		if (*n == '\0')
-			return haystack;
+			return (char *)haystack;
 		haystack++;
 	}
 	return NULL;
@@ -151,14 +152,14 @@ char *strrstr(const char *haystack, const char *needle)
 			found = haystack;
 		haystack++;
 	}
-	return found;
+	return (char *)found;
 }
 
 void *memcpy(void *destination, const void *source, size_t num)
 {
 	char *cdest = (char *) destination;
 	char *csrc = (char *) source;
-	for (int i = 0; i < num; i++) {
+	for (size_t i = 0; i < num; i++) {
 		cdest[i] = csrc[i];
 	}
 	return destination;
@@ -166,7 +167,6 @@ void *memcpy(void *destination, const void *source, size_t num)
 
 void *memmove(void *destination, const void *source, size_t num)
 {
-	char *cdest = (char *) destination;
 	char *csrc = (char *) source;
 	char aux[255];
 	for (size_t i = 0; i < num; i++)
