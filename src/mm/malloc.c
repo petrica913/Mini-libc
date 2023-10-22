@@ -7,6 +7,8 @@
 #include <string.h>
 #include <stdlib.h>
 
+#define MUL_NO_OVERFLOW	((size_t)1 << (sizeof(size_t) * 4))
+
 struct mem_list new_mem_list;
 
 void *malloc(size_t size)
@@ -46,6 +48,7 @@ void *realloc(void *ptr, size_t size)
 
 void *reallocarray(void *ptr, size_t nmemb, size_t size)
 {
-	/* TODO: Implement reallocarray(). */
-	return NULL;
+	if (nmemb == 0 || size == 0)
+		return NULL;
+	return realloc(ptr, nmemb * size);
 }
